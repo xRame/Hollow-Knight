@@ -11,6 +11,7 @@ public class Hornet : MonoBehaviour
     private bool inJump;
     private int cntJump = 0;
     private int startRun = 0;
+    private bool sFalling = true;
 
     private bool isGrounded;
     public Transform feet;
@@ -32,10 +33,17 @@ public class Hornet : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Space) && (inJump == false || cntJump < 1))
         {
-            cntJump++;
+            
             inJump = true;
             anim.SetTrigger("Jump");
-            Jump();
+            if (cntJump == 1)
+            {
+                //rb.
+                Jump(jump);
+            }
+            else
+                Jump(jump);
+            cntJump++;
         }
 
 
@@ -60,23 +68,24 @@ public class Hornet : MonoBehaviour
 
         if (!isGrounded)
         {
-            
+            if(sFalling == false)
+            {
+                anim.SetTrigger("sFaliing");
+                sFalling = true;
+            }
             anim.SetBool("isFalling", true);
             inJump = true;
-            if (cntJump == 1)
-            {
-                rb.gravityScale = 1.0f;
-            }
-            rb.gravityScale *= 1.02f;
         }
         if (isGrounded)
         {
+            sFalling = false;
             cntJump = 0;
             anim.SetBool("isFalling", false);
             inJump = false;
             rb.gravityScale = 1.0f;
         }
-
+        if (Input.GetKeyDown(KeyCode.X))
+            anim.SetTrigger("attack");
 
         if (Input.GetKeyDown(KeyCode.F))
         {
@@ -111,7 +120,7 @@ public class Hornet : MonoBehaviour
         //anim.SetTrigger("StartRun");
     }
    
-    void Jump()
+    void Jump(float jump)
     {
         rb.AddForce(transform.up * jump, ForceMode2D.Impulse);
     }
