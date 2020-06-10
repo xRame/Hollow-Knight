@@ -105,11 +105,7 @@ public class Hornet : MonoBehaviour
         if (rb.transform.position.y <= -100) {
             Application.LoadLevel(Application.loadedLevel);
         }
-
-
     }
-
-
 
     void Flip()
     {
