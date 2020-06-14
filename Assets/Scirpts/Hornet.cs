@@ -84,24 +84,7 @@ public class Hornet : MonoBehaviour
             inJump = false;
             rb.gravityScale = 1.0f;
         }
-        if (Input.GetKeyDown(KeyCode.X))
-            anim.SetTrigger("attack");
-
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            if (anim.GetInteger("Crouch") == 2)
-            {
-                anim.SetInteger("Crouch", 1);
-              //collider.y = 0.13f;
-            }
-
-            else
-            {
-                anim.SetInteger("Crouch", 2);
-               //collider.y = 0.23f;
-            }
-        }
-
+       
         if (rb.transform.position.y <= -100) {
             Application.LoadLevel(Application.loadedLevel);
         }
